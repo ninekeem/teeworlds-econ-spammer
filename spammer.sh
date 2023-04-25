@@ -53,6 +53,7 @@ echo "[init]TW_PORT=$TW_PORT"
 # TODO: Use source
 # TODO: Test it out in various scenarios
 # TODO: More powerful shell system
+# TODO: Try to escape characters like '_'
 if env | grep -q "^CMD"
 then
 		#. commands.sh
