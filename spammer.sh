@@ -49,38 +49,24 @@ echo "[init]TW_HOST=$TW_HOST"
 . tw_port.sh
 echo "[init]TW_PORT=$TW_PORT"
 
-# Server commands to be executed
-# TODO: Use source
-# TODO: Test it out in various scenarios
-# TODO: More powerful shell system
-# TODO: Try to escape characters like '_'
-if env | grep -q "^CMD"
-then
-		#. commands.sh
-		COMMANDS=$(commands.sh)
-fi
-
-# Merging EC_PASSWORD and COMMANDS
-COMMANDS=$(printf '%s'"$EC_PASSWORD\n$COMMANDS")
-
-# If $DRY=1 then just echo $COMMANDS and exit
-if [ "$DRY" -eq 1 ]
-then
-		echo "$COMMANDS"
-		exit
-fi
-
 # Execution of all commands and netcat it on server[s]
 while true
 do
-		# TODO: implement this
-		#if env | grep -q "^TOGGLE_CMD"
-		#then		
-		#		TOGGLE_COMMANDS=$(toggle_commands.sh)
-		#fi
-		for i in $TW_PORT ; do
-				date
-				echo "$COMMANDS" | nc -Nw "$CONNECT_TIMEOUT" "$TW_HOST" "$i"
-		done
+		if env | grep -q "^CMD"
+		then
+				# If $DRY=1 then just echo $COMMANDS and exit
+				if [ "$DRY" -eq 1 ]
+				then
+						commands.sh
+						exit
+				fi
+				for i in $TW_PORT ; do
+						date
+						commands.sh | nc -Nw "$CONNECT_TIMEOUT" "$TW_HOST" "$i" || exit 1
+				done
+		else
+				echo 'Looks like you not specified commands. Exiting.'
+				exit 1
+		fi
 		sleep "$INTERVAL"
 done
