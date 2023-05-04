@@ -5,10 +5,9 @@ if [ -z "$EC_PORT" ]
 then
 		EC_PORT=8303
 else
-		if echo "$EC_PORT" | grep -q ':'
-		then
-				EC_PORT_START=$(echo "$EC_PORT" | awk -F ':' '{ print $1 }')
-				EC_PORT_END=$(echo "$EC_PORT" | awk -F ':' '{ print $2 }')
+		case $EC_PORT in *:*)
+				EC_PORT_START=${EC_PORT%:*}
+				EC_PORT_END=${EC_PORT#*:}
 				EC_PORT=''
 				i=$EC_PORT_START
 				while [ "$i" -le "$EC_PORT_END" ]
@@ -16,5 +15,6 @@ else
 						EC_PORT="$EC_PORT$i "
 						i=$((i+1))
 				done
-		fi
+				;;
+		esac
 fi

@@ -1,21 +1,27 @@
 #!/bin/sh
 
+#x=1:2:3:4
+#echo ${x#*:}
+#echo ${x##*:}
+#echo ${x%:*}
+#echo ${x%%:*}
+
 # ---------- #
 # INIT BLOCK #
 # ---------- #
 
 # Connection timeout
-if [ -z "$CONNECTION_TIMEOUT" ] ; then CONNECTION_TIMEOUT=5; fi
+CONNECTION_TIMEOUT=${CONNECTION_TIMEOUT:-5}
 echo "[init] CONNECTION_TIMEOUT=$CONNECTION_TIMEOUT"
 
 # Needed for testing purpose
 # DRY=0 cause script to work as usual
 # DRY=1 cause script to just show commands, but not to send them on server
-if [ -z "$DRY" ] ; then DRY=0 ; fi
+DRY=${DRY:-0}
 echo "[init] DRY=$DRY"
 
 # ECON password
-if [ -z "$EC_PASSWORD" ] ; then EC_PASSWORD='password' ; fi
+EC_PASSWORD=${EC_PASSWORD:-password}
 echo "[init] EC_PASSWORD=$EC_PASSWORD"
 
 # Server[s] port[s]
@@ -23,20 +29,20 @@ echo "[init] EC_PASSWORD=$EC_PASSWORD"
 echo "[init] EC_PORT=$EC_PORT"
 
 # Exit if REACHABLE=NO
-if [ -z "$ERROR_EXIT" ] ; then ERROR_EXIT=0 ; fi
+ERROR_EXIT=${ERROR_EXIT:-0}
 echo "[init] ERROR_EXIT=$ERROR_EXIT"
 
 # Key for TOGGLE_COMMANDS
 # TODO: More powerful key system (maybe)
-if [ -z "$INIT_KEY" ] ; then INIT_KEY=1 ; fi
+INIT_KEY=${INIT_KEY:-1}
 echo "[init] INIT_KEY=$INIT_KEY"
 
 # Spam interval
-if [ -z "$INTERVAL" ] ; then INTERVAL=300 ; fi
+INTERVAL=${INTERVAL:-300}
 echo "[init] INTERVAL=$INTERVAL"
 
 # Server IP host
-if [ -z "$TW_HOST" ] ; then TW_HOST='127.0.0.1' ; fi
+TW_HOST=${TW_HOST:-127.0.0.1}
 echo "[init] TW_HOST=$TW_HOST"
 
 # Change timezone if specified

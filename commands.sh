@@ -4,14 +4,12 @@ echo "$EC_PASSWORD"
 CMDS=$(env | grep "^CMD" | sort | sed -e s/'CMD.*_'//)
 echo "$CMDS" | while IFS= read -r i
 do
-		if echo "$i" | grep -q "COMMAND"
+		i="${i#CMD*_}"
+		if [ "${i%=*}" = "COMMAND" ] 
 		then
-				i=$(echo "$i" | sed -e s/'COMMAND.*='//)
-				echo "$i"
-
-		elif echo "$i" | grep -q "SHELL"
+				echo "${i#COMMAND*=}"
+		elif [ "${i%=*}" = "SHELL" ] 
 		then
-				i=$(echo "$i" | sed -e s/'SHELL.*='//)
-				echo "say $($i)"
+				echo "say $(${i#SHELL*=})"
 		fi
 done
