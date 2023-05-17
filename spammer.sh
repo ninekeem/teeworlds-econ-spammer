@@ -1,11 +1,5 @@
 #!/bin/sh
 
-#x=1:2:3:4
-#echo ${x#*:}
-#echo ${x##*:}
-#echo ${x%:*}
-#echo ${x%%:*}
-
 # ---------- #
 # INIT BLOCK #
 # ---------- #
@@ -31,11 +25,6 @@ echo "[init] EC_PORT=$EC_PORT"
 # Exit if REACHABLE=NO
 ERROR_EXIT=${ERROR_EXIT:-0}
 echo "[init] ERROR_EXIT=$ERROR_EXIT"
-
-# Key for TOGGLE_COMMANDS
-# TODO: More powerful key system (maybe)
-INIT_KEY=${INIT_KEY:-1}
-echo "[init] INIT_KEY=$INIT_KEY"
 
 # Spam interval
 INTERVAL=${INTERVAL:-300}
