@@ -1,6 +1,10 @@
 #!/bin/sh
-# TODO: add more efficient and powerful port parsing
 
+# Connection timeout
+CONNECTION_TIMEOUT=${CONNECTION_TIMEOUT:-5}
+
+# Server[s] port[s]
+# TODO: add more efficient and powerful port parsing
 if [ -z "$EC_PORT" ]
 then
 		EC_PORT=8303
@@ -18,3 +22,6 @@ else
 				;;
 		esac
 fi
+
+# Spam interval
+INTERVAL="${INTERVAL:-300}"
